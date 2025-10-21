@@ -38,6 +38,8 @@ class MainActivity : ComponentActivity() {
 fun ListaAlumnosCard() {
     val listaInicial = listOf<String>("Carlos0", "Carlos1", "David Salvador", "Giovanni", "Iván", "Daniel", "David Romero")
     var lista by remember { mutableStateOf(listaInicial) }
+    var randomPos : Int = -1
+    var nombre by remember { mutableStateOf("")}
 
     Column (
         modifier = Modifier.fillMaxSize(),
@@ -56,12 +58,15 @@ fun ListaAlumnosCard() {
 
         }
 
-
         Button(onClick = {
+            randomPos = (0..(lista.size - 1)).random()
+            nombre = lista.get(randomPos)
 
         }) {
             Text("Elegir alumno")
         }
+
+        Text(nombre)
     }
 }
 
