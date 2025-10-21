@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ListaAlumnosCard() {
-    val listaInicial = listOf<String>("Carlos0", "Carlos1", "David Salvador", "Giovanni", "Iván", "Daniel", "David Romero")
+    val listaInicial = mutableListOf<String>("Carlos0", "Carlos1", "David Salvador", "Giovanni", "Iván", "Daniel", "David Romero")
     var lista by remember { mutableStateOf(listaInicial) }
     var randomPos : Int = -1
     var nombre by remember { mutableStateOf("")}
@@ -59,14 +59,25 @@ fun ListaAlumnosCard() {
         }
 
         Button(onClick = {
-            randomPos = (0..(lista.size - 1)).random()
-            nombre = lista.get(randomPos)
+            if (lista.isNotEmpty()) {
+                randomPos = (0 until lista.size).random()
+                nombre = lista.get(randomPos)
+                lista.remove(nombre)
 
+            }
         }) {
             Text("Elegir alumno")
         }
+        Button(onClick = {
+            lista = listaInicial.toMutableList()
+            nombre = ""
+        }) {
+            Text("Reiniciar lista")
+        }
 
         Text(nombre)
+
+
     }
 }
 
